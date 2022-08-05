@@ -2,6 +2,4 @@
     export let value;
 </script>
 
-<!-- TODO -->
-{value}
-<!--      -->
+<input type="time" bind:value={value} class="input input-bordered input-info w-full max-w-md" /> 

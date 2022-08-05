@@ -3,6 +3,7 @@
     import ValueTime from "./ValueTime.svelte";
     import ValueInteger from "./ValueInteger.svelte";
     import ValueDecimal from "./ValueDecimal.svelte";
+    import ValueBoolean from "./ValueBoolean.svelte";
 
 
     export let value;
@@ -19,4 +20,6 @@
     <ValueDateTime bind:value />
 {:else if type === 'time'}
     <ValueTime bind:value />
+{:else if type === 'boolean'}
+    <ValueBoolean bind:value />
 {/if}

@@ -1,0 +1,97 @@
+Cheminement du test technique : 
+
+Avant de commencer le test, j'ai lu l'énnoncé afin d'avoir une première idée des tâches à accomplir. Tout d'abord je me suis assuré
+que NodeJs était bien installé sur ma machine , une fois cela vérifié, j'ai cloné le repository sur gitlab, mais 1er difficulté; l'accès 
+ma été refusé, je devais configurer une clef ssh sur ma machine . Une fois passé cette difficulté à l'aide d'un tuto trouvé sur le web 
+
+( https://genuinecoder.com/how-to-fix-permission-denied-publickey-issue-in-gitlab/ ),
+
+j'ai pu enfin accèder au projet et commencer le 1er énnoncé. 
+
+  ValueInteger:
+
+- En ouvrant le projet sur vscode , j'ai tout d'abord commencé par examiner la structure du projet, bien que le framewwork Svelte
+  était tout nouveau pour moi cela m'a beaucoup fait penser au framework Angular avec les composants , le système de route et les dépendances
+  installées avec npm. J'ai donc commencé le 1er exercice dans le dossier src/lib et j'ai recherché le fichier ValuInteger.svelt , une fois dans ce fichier 
+  je me suis aperçue que la fonction était déja codé puis je me suis rendu compte que je travaillais pendant un long momemnt dans le projet corrigé .
+  Comme je possèdait la solution à l'exercice je tenais réélement à comprendre la manière dont fonctionnait la fonction handleChange de ValueInteger 
+  Dans cette fonction on s'assure que la valeur de l'input en entrer est bien un nombre , ce nombre sera ensuite convertie en entier avec parseInt().
+  on vérifie dans deux condition distinct si la valeur est inférieur ou supérieur à la limite autorisé si c'est le cas alors la valeur entrée dans le champ
+  prendra automatiquement la valeur maximum ou minimum lorsque l'évenement "change" de l'input sera déclenché. La valeur de sortie de la fonction sera liée au 
+  html grâce au bind:value.
+
+  ValueDecimal:
+
+- Dans cette exercice l'approche était la même que dans l'exercice 1 , à savoir que les valeurs entrées ne devaient pas dépasser les valeurs max et min. 
+  En plus de cette consigne il fallait tronquer les valeurs a 3 chiffre apres la virgule à la valeur max ou min lorsqu elle était supérieur ou inferieur.
+  n'arrivant pas à résoudre le problème j'ai regardé la correction et je n'ai pas compris l'interêt à utiliser la fonction Math.pow au lieu de 1000, je n'ai
+  aussi pas compris à quoi correspondait la variable step dans le code.. 
+  
+
+
+  ValueBoolean:
+
+- Pour le 3ème exercice j'ai commencé par m'appercevoir que j'avais une erreur dans la page boolean. En lisant cette erreur , j'ai compris que la route pour
+  accéder à ce fichier était inexistante . En me rendant dans src\routes\settings , j'ai créé  un dossier boolean qui contient deux fichier un fichier index.js se 
+  chargant d'établir une requête asynchrone vers l'api afin de récupérer les données en json  et un fichier index.svelte qui se charge d'afficher les données sur la page.
+  Pour créer ces deux fichier je me suis inspiré des autres fichier existant dans les autres dossiers. 
+  En avancant dans ma refléxion, j'ai remarqué que un fichier settings etait importé depuis le dossier lib. Ce fichier se charge d'apporter un style et 
+  et d'établir une structure d'affichage des données communes à toutes les pages ( c'est dans ce fichier que j'ai placé le "<h3>setting.desc</h3> afin d"afficher le desc pour chaque 
+  champ si celui-ci est existant. ). 
+  Dans le fichier ValueBoolean.svelt j'ai crée une fonction toggle qui sera appellé lors du clique et qui va changé la valeur du booléan, j'ai ensuite créée 
+  en m'aidant de la documentation de svelt une condition permettant d'ajouter l'attribut checked si la valeur est true.
+
+  ValueTime:
+ 
+- Pour cette énoncé j'ai simplement créé dans le fichier valueTime.svelte un input avec une class de daisy UI . Dans la balise script j'exporte la variable value afin de pouvoir
+  la réutilisé dans mon input avec la directive bind:value
+
+
+
+QUESTION 1 : 
+
+Le but de cette fonction est de s'assurer que les utilisateurs puisse selectionner une même date commune 
+peu importe leur localisation à travers le monde.
+
+
+Dans la fonction handlechange du composant valueDateTime on cible tout d'abord la valeur de l'input avec e.target.value qui est la date 
+local de l'utilisateur. 
+
+Ensuite avec l'objet Date on créer une nouvelle date avec la valeur ciblé dans l'input.
+
+Une fois la date stocker dans la variable on utilise la methode getTimeZoneOffset sur celle-ci afin de retourner la difference en minute
+entre l'heure local et le fuseau horraire UTC, la valeur est positive si l'heur local est en retard
+ou negative si elle est en avance par rapport à l'utc.
+
+Ensuite sur la date entrée par l'utilisateur on utilise la methode getTime afin de retourner la valeur en milliseconde 
+du temp qui s'est ecoulé depuis le premier janvier 1970 à minuit UTC à cette même date.
+
+A ce resultats on soustrait la difference de temp entre l'utc et l'heur local de l'utilisateur 
+qu'on multiplie par 60000 afin d'obtenir un resultat en milliseconde. 
+
+Une fois cela fait on utilice la methode slice afin d'avoir la date avec le Jour/ Mois / année et heure. 
+
+Cette date sera ensuite automatiquement mise à jour dans le champ à chaque fois que l'utilisateur choisira une date dans le champ. 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+QUESTION 2 : 
+
+Tailwind css représente l'avantage d'être personnalisable et de stylisé une page dans le html en attribuant des classes au éléments.
+A noter que maintenir des fichiers css sur de gros projet est assez compliqué . Tailwind permet donc pour chaque propriété css d'associer 
+une classe utilitaire.
+
+Tailwind est personalisable, responsive et composable. 
+
+personalisable car on peut dans un fichier de configuration ajouter ou modifier les valeurs definies pour chaque propriétés.
+
+responsive car on peut utiliser des prefixe qui vont nous permettre d'adapter le contenue pour une taille d'écran donnée.
+
+composable car on va pouvoir créer des classes afin de faire en sorte que le style d'un élément soit attribué à plusieur autres éléments.
+
+Cependant l'utilisation des classes utilitaire peut être redondante et parfois plusieur classes peuvent être utilisé afin de créer un 
+composant ce qui augmente la longueur de notre code et le force parfois à se repéter. 
+Afin de simplifier cela Daisy UI met à disposition des composants utilisable pour nos page html. Ces composant sont utilisable de manière 
+simple et concise et augmente la lisibilté de notre code et savère être très pratique. 
+
+

@@ -5,9 +5,14 @@
 
     const handleChange = (e) => {
         if ( !isNaN(e.target.value) ){
-            // TODO
-            value = e.target.value;
-            // -------------------------
+            let formattedValue = parseInt(e.target.value); 
+            
+            if (value > max) {
+                formattedValue = max;
+            } else if(value < min){
+                formattedValue = min;
+            }
+             value = formattedValue;
         }
     }
  
